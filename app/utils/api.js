@@ -1,6 +1,7 @@
-const id = 'b4c72d328b8d6556b00e'
-const secret = '24c668c9f42f29111da32b1f83ceb6c5997a90f5'
+const id = process.env.API_ID
+const secret = process.env.API_SECRET
 const params = `?client_id=${id}&client_secret=${secret}`
+
 
 function getErrorMessage(message, username) {
   if (message === 'Not Found') {
