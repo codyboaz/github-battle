@@ -2,12 +2,10 @@ const id = process.env.API_ID
 const secret = process.env.API_SECRET
 const params = `?client_id=${id}&client_secret=${secret}`
 
-
 function getErrorMessage(message, username) {
   if (message === 'Not Found') {
     return `${username} doesn't exist.`
   }
-
   return message
 }
 
@@ -18,7 +16,6 @@ function getProfile(username) {
       if (profile.message) {
         throw new Error(getErrorMessage(profile.message, username))
       }
-
       return profile
     })
 }
@@ -30,7 +27,6 @@ function getRepos(username) {
       if (repos.message) {
         throw new Error(getErrorMessage(repos.message, username))
       }
-
       return repos
     })
 }
@@ -73,8 +69,6 @@ export function fetchPopularRepos(language) {
       if (!data.items) {
         throw new Error(data.message)
       }
-
       return data.items
     })
-
 }
