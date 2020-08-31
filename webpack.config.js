@@ -1,9 +1,17 @@
 const path = require('path')
+var webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
+var dotenv = require('dotenv');
 
 module.exports = () => {
-
+  // call dotenv and it will return an Object with a parsed key 
+  const env = dotenv.config().parsed;
+  // reduce it to a nice object, the same as before
+  const envKeys = Object.keys(env).reduce((prev, next) => {
+    prev[`process.env.${next}`] = JSON.stringify(env[next]);
+    return prev;
+  }, {});
   return {
     entry: './app/index.js',
     output: {
@@ -25,7 +33,8 @@ module.exports = () => {
       }),
       new CopyPlugin([
         { from: '_redirects' }
-      ])
+      ]),
+      new webpack.DefinePlugin(envKeys)
     ],
     devServer: {
       historyApiFallback: true
